@@ -1,10 +1,10 @@
-# phpGrace
-## phpGrace - 轻快的实力派！<br />
+## phpGrace
+phpGrace - 轻快的实力派！<br />
 手册及官网 : <br />
 [http://www.phpGrace.com](http://www.phpGrace.com/ "www.phpGrace.com")<br /><br />
 
-# phpGrace - 工具库
-## 打造最全的工具库，只为更快、更好的开发 ^_^<br />
+## phpGrace - 工具库
+打造最全的工具库，只为更快、更好的开发 ^_^<br />
 工具库地址 :<br />
 [http://www.phpgrace.com/tools](http://www.phpgrace.com/tools "http://www.phpgrace.com/tools")<br /><br />
 
