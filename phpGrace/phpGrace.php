@@ -15,7 +15,7 @@ define('PG_DS'              ,  DIRECTORY_SEPARATOR);
 define('PG_IN'              ,  dirname(__FILE__).PG_DS);
 if(!defined('PG_VIEW_TYPE')){define('PG_VIEW_TYPE' , 'file');}
 if(!defined('PG_POST_FILTER')){define('PG_POST_FILTER' , true);}
-if(!defined('PG_DEBUG')) {define('PG_DEBUG'  , true);}
+if(!defined('PG_DEBUG')) {define('PG_DEBUG'  , false);}
 if(!defined('PG_AUTO_DISPLAY')){define('PG_AUTO_DISPLAY' , true);}
 if(!defined('PG_ROUTE')){define('PG_ROUTE' , false);}
 if(!defined('PG_CLOSE_CACHE')){define('PG_CLOSE_CACHE' , false);}
