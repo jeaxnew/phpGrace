@@ -13,6 +13,7 @@ define('PG_INDEX_FILE_NAME' , 'index.php');
 define('PG_VERSION'         ,  '1.1.1');
 define('PG_DS'              ,  DIRECTORY_SEPARATOR);
 define('PG_IN'              ,  dirname(__FILE__).PG_DS);
+
 if(!defined('PG_VIEW_TYPE')){define('PG_VIEW_TYPE' , 'file');}
 if(!defined('PG_POST_FILTER')){define('PG_POST_FILTER' , true);}
 if(!defined('PG_DEBUG')) {define('PG_DEBUG'  , false);}
@@ -38,6 +39,9 @@ define('PG_LANG_PACKAGE', 'lang');
 define('PG_CONF'        , 'config.php');
 define('PG_TOOLS'       , 'tools');
 
+// 页面后缀
+if(!defined('PG_SUFFIX')){define('PG_SUFFIX' , false);}
+
 //router
 function PG_Router(){
 	if(isset($_GET['pathInfo'])){
@@ -46,7 +50,7 @@ function PG_Router(){
 	}else{
 		$path = 'index/index';
 	}
-	echo $path;
+	if(PG_SUFFIX){$path = str_replace(PG_SUFFIX, '', $path);}
 	$router = explode('/', $path);
 	if(empty($router[0])){array_shift($router);}
 	if(PG_ROUTE){
@@ -65,9 +69,8 @@ function PG_Router(){
 	$router[0] = isset($router[0]) ?  $router[0] : 'index';
 	$router[1] = isset($router[1]) ?  $router[1] : 'index';
 	for($i = 2; $i < count($router); $i++){
-		if(preg_match('/^page_(.*)(\.html)*$/Ui', $router[$i], $matches)){
-			define("PG_PAGE",  $matches[1]);
-			if(isset($matches[2])){define("PG_SUFFIX",  $matches[2]);}
+		if(preg_match('/^page_(.*)('.PG_SUFFIX.')*$/Ui', $router[$i], $matches)){
+			define("PG_PAGE",  intval($matches[1]));
 			array_splice($router, $i, 1);
 		}
 	}
@@ -332,22 +335,19 @@ function lang($key){
 }
 
 //路径解析
-function u($c, $m, $params='', $page = null){
-	if($page != null){$page = 'page_'.$page;}
+function u($c, $m, $params = '', $page = null){
+	$suffix = defined('PG_SUFFIX') ? PG_SUFFIX : '/';
+	$page = $page != null ? '/page_'.$page : '';
 	if(is_array($params)){
-		if($page != null){
-			return PG_SROOT.$c.'/'.$m.'/'.implode('/', $params).'/'.$page;
+		return PG_SROOT.$c.'/'.$m.'/'.implode('/', $params).$page.$suffix;
+	}else{
+		if($params != ''){
+			return PG_SROOT.$c.'/'.$m.'/'.$params.$page.$suffix;
 		}else{
-			return PG_SROOT.$c.'/'.$m.'/'.implode('/', $params);
+			return PG_SROOT.$c.'/'.$m.$page.$suffix;
 		}
 	}
-	if($page != null){
-		return PG_SROOT.$c.'/'.$m.'/'.$params.'/'.$page;
-	}else{
-		return PG_SROOT.$c.'/'.$m.'/'.$params;
-	}
 }
-
 //去除空白字符
 function trimAll($str){
     $qian=array(" ","　","\t","\n","\r");

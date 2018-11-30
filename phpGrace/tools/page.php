@@ -39,11 +39,13 @@ class page{
 		}else{
 			$this->currentUrl = PG_SROOT.PG_C.'/'.PG_M;
 		}
-		$this->limit = ' limit '.(($this->currentPage - 1) * $eachPage).','.$eachPage;
-		$this->firstPage = $this->currentUrl.'/page_1/'.$this->addGet();
-		$this->prePage   = $this->currentUrl.'/page_'.($this->currentPage - 1).'/'.$this->addGet();
-		$this->nextPage  = $this->currentUrl.'/page_'.($this->currentPage + 1).'/'.$this->addGet();
-		$this->lastPage  = $this->currentUrl.'/page_'.$this->maxPage.'/'.$this->addGet();
+		$suffix = 'PG_SUFFIX' ? PG_SUFFIX : '/';
+		$this->limit     = ' limit '.(($this->currentPage - 1) * $eachPage).','.$eachPage;
+		$getsRec         = $this->addGet();
+		$this->firstPage = $this->currentUrl.'/page_1'.$suffix.$getsRec;
+		$this->prePage   = $this->currentUrl.'/page_'.($this->currentPage - 1).$suffix .$getsRec;
+		$this->nextPage  = $this->currentUrl.'/page_'.($this->currentPage + 1).$suffix .$getsRec;
+		$this->lastPage  = $this->currentUrl.'/page_'.$this->maxPage.$suffix.$getsRec;
 		//分页列表
 		if($this->currentPage <= 3){
 			$start = 1; $end = 6;
@@ -54,10 +56,10 @@ class page{
 		if($end - $start < 5){$start = $end - 5;}
 		if($start < 1){$start = 1;}
 		for($i = $start; $i <= $end; $i++){
-			$this->listPage[$i] = $this->currentUrl.'/page_'.$i.'/'.$this->addGet();
+			$this->listPage[$i] = $this->currentUrl.'/page_'.$i.$suffix.$getsRec;
 		}
 		//跳转分页
-		$this->skipPage = '<select onchange="location.href=\''.$this->currentUrl.'/page_\'+this.value;">';
+		$this->skipPage = '<select onchange="location.href=\''.$this->currentUrl.'/page_\'+this.value+\''.$suffix.$getsRec.'\';">';
 		for($i = 1; $i <= $this->maxPage; $i++){
 			if($i == $this->currentPage){
 				$this->skipPage .= '<option value="'.$i.'" selected="selected">'.$i.'</option>';
