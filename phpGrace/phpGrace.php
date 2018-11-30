@@ -46,6 +46,7 @@ function PG_Router(){
 	}else{
 		$path = 'index/index';
 	}
+	echo $path;
 	$router = explode('/', $path);
 	if(empty($router[0])){array_shift($router);}
 	if(PG_ROUTE){
