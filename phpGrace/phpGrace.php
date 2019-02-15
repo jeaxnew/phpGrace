@@ -257,12 +257,12 @@ class grace{
  * @param value 修正后的值
  * @return value
  */
-function gracePOST($name, $value = ''){
+function initPOST($name, $value = ''){
 	$_POST[$name] = empty($_POST[$name]) ? $value : $_POST[$name];
 	return $_POST[$name];
 }
 
-//session 
+// session
 function startSession(){
 	switch(PG_SESSION_TYPE){
 		case 'file' :
