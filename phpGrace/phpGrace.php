@@ -352,9 +352,7 @@ function u($c, $m, $params = '', $page = null){
 }
 //去除空白字符
 function trimAll($str){
-    $qian=array(" ","　","\t","\n","\r");
-    $hou=array("","","","","");
-    return str_replace($qian,$hou,$str); 
+    return str_replace(array(" ", "　", "\t", "\n", "\r"), "", $str); 
 }
 
 //option 选中状态
