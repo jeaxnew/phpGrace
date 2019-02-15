@@ -515,3 +515,4 @@ try{
 	if(PG_AUTO_DISPLAY){call_user_func(array($controller, 'display'));}
 	pgRunLog();
 }catch(pgException $e){$e->showBug();}
+
