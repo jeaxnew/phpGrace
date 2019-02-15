@@ -22,7 +22,7 @@ if(!defined('PG_ROUTE')){define('PG_ROUTE' , false);}
 if(!defined('PG_CLOSE_CACHE')){define('PG_CLOSE_CACHE' , false);}
 
 //sessions path
-if(!defined('PG_SESSION_DIR')){define('PG_SESSION_DIR' , './sessions');}
+//if(!defined('PG_SESSION_DIR')){define('PG_SESSION_DIR' , './sessions');}
 //session type  [file, memcache, redis]
 if(!defined('PG_SESSION_TYPE')){define('PG_SESSION_TYPE' , 'file');}
 //session start
@@ -266,8 +266,10 @@ function gracePOST($name, $value = ''){
 function startSession(){
 	switch(PG_SESSION_TYPE){
 		case 'file' :
-			if(!is_dir(PG_SESSION_DIR)){mkdir(PG_SESSION_DIR, 0777, true);}
-			session_save_path(PG_SESSION_DIR);
+			if(defined('PG_SESSION_DIR')){
+				if(!is_dir(PG_SESSION_DIR)){mkdir(PG_SESSION_DIR, 0777, true);}
+				session_save_path(PG_SESSION_DIR);
+			}
 		break;
 		case 'memcache' :
 			ini_set("session.save_handler", "memcache");
